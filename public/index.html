@@ -1,14 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <title>💩 TurDoo</title>
-    <!--suppress HtmlUnknownTarget -->
-    <link rel="stylesheet" href="main.css">
+  <meta charset="utf-8"/>
+  <title>💩 TurDoo</title>
+  <!--suppress HtmlUnknownTarget -->
+  <link rel="stylesheet" href="main.css">
 </head>
 <body>
 
-<p>Welcome to TurDoo.</p>
+<div class="h-screen bg-gray-100 dark:bg-gray-800">
+  <div class="flex flex-col items-center px-3 py-6 m-auto max-w-screen-sm">
+    <h1 class="mb-10 w-full text-4xl text-center dark:text-gray-50">💩 Turdoo</h1>
+
+    <form class="mb-4">
+      <div class="flex items-center border-b-2 border-purple-600">
+        <!--suppress HtmlFormInputWithoutLabel -->
+        <input
+            class="mr-3 w-full h-full leading-tight text-xl dark:text-white bg-transparent border-none appearance-none
+            focus:outline-none" type="text" placeholder="New Todo">
+        <button class="px-4 py-2 font-bold text-white bg-purple-600 hover:bg-purple-900">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+          </svg>
+        </button>
+      </div>
+    </form>
+
+    <div class="mb-1 flex dark:text-gray-100 text-2xl w-full border-2 border-purple-600 p-2 px-3 items-center justify-between">
+      <span>Todo Item</span>
+      <div class="flex">
+        <svg xmlns="http://www.w3.org/2000/svg" class="dark:text-gray-700 h-8 w-8 ml-1 hover:text-red-600 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+
+        <svg xmlns="http://www.w3.org/2000/svg" class="dark:text-gray-700 h-8 w-8 ml-1 hover:text-green-600 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <!--suppress HtmlUnknownTarget -->
 <script src="main.js"></script>
