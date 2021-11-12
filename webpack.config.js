@@ -1,5 +1,6 @@
 const path = require("path");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: "development",
@@ -14,7 +15,12 @@ module.exports = {
     host: "localhost",
   },
   plugins: [
-    new MiniCssExtractPlugin()
+    new MiniCssExtractPlugin(),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: '../public' }
+      ]
+    })
   ],
   module: {
     rules: [
@@ -40,7 +46,7 @@ module.exports = {
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
         type: "asset",
-      }
+      },
     ],
   },
 };

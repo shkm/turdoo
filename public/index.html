@@ -19,7 +19,8 @@
             data-todo-target="newTask"
             class="mr-3 w-full h-full leading-tight text-xl dark:text-white bg-transparent border-none appearance-none
             focus:outline-none" type="text" placeholder="New Todo">
-        <button class="px-4 py-2 font-bold text-white bg-purple-600 hover:bg-purple-900 transition ease-in-out duration-200">
+        <button
+            class="px-4 py-2 font-bold text-white bg-purple-600 hover:bg-purple-900 transition ease-in-out duration-200">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
           </svg>
@@ -31,14 +32,19 @@
     <div class="w-full" data-todo-target="completeTasks"></div>
 
     <template data-todo-target="incompleteTaskTemplate">
-      <div class="task mb-1 flex text-gray-400 dark:text-gray-700 text-2xl w-full border-2 border-purple-600 p-2 px-3 items-center justify-between">
+      <div
+          class="task mb-1 flex text-gray-400 dark:text-gray-700 text-2xl w-full border-2 border-purple-600 p-2 px-3 items-center justify-between">
         <span class="text-gray-900 dark:text-gray-100 description"></span>
         <div class="flex">
-          <svg data-action="click->todo#remove" xmlns="http://www.w3.org/2000/svg" class="transition ease-in-out duration-200 h-8 w-8 ml-1 hover:text-red-600 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg data-action="click->todo#remove" xmlns="http://www.w3.org/2000/svg"
+               class="transition ease-in-out duration-200 h-8 w-8 ml-1 hover:text-red-600 cursor-pointer" fill="none"
+               viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
           </svg>
 
-          <svg data-action="click->todo#complete" xmlns="http://www.w3.org/2000/svg" class="transition ease-in-out duration-200 h-8 w-8 ml-1 hover:text-green-600 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg data-action="click->todo#complete" xmlns="http://www.w3.org/2000/svg"
+               class="transition ease-in-out duration-200 h-8 w-8 ml-1 hover:text-green-600 cursor-pointer" fill="none"
+               viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
           </svg>
         </div>
@@ -49,14 +55,11 @@
       <div
           class="text-gray-300 line-through task mb-1 dark:text-gray-700 text-2xl text-center w-full p-2 px-3">
         <span class="description"></span>
-        </div>
       </div>
     </template>
-  </template>
-</div>
+  </div>
 
-
-<!--suppress HtmlUnknownTarget -->
-<script src="main.js"></script>
+  <!--suppress HtmlUnknownTarget -->
+  <script src="main.js"></script>
 </body>
 </html>

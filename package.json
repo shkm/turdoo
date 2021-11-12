@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@hotwired/stimulus": "^3.0.1",
-    "@hotwired/stimulus-webpack-helpers": "^1.0.1"
+    "@hotwired/stimulus-webpack-helpers": "^1.0.1",
+    "copy-webpack-plugin": "^9.1.0"
   }
 }
