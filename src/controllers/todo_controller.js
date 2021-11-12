@@ -1,9 +1,10 @@
 import { Controller } from '@hotwired/stimulus'
 
+const TASK_SELECTOR = '.task'
 const TASK_DESCRIPTION_SELECTOR = '.description'
 
 export default class TodoController extends Controller {
-  static targets = ["newTask", "taskTemplate"]
+  static targets = ["newTask", "incompleteTaskTemplate", "completeTaskTemplate", "incompleteTasks", "completeTasks"]
 
   connect() {
     this.clearAndFocusInput()
@@ -14,9 +15,25 @@ export default class TodoController extends Controller {
 
     if (this.newTaskTarget.value === '') return
 
-    this.addTask(this.newTaskTarget.value)
+    this.addIncompleteTask(this.newTaskTarget.value)
 
     this.clearAndFocusInput()
+  }
+
+  remove (event) {
+    this.currentTaskFromEvent(event).remove()
+  }
+
+  complete (event) {
+    const currentTask = this.currentTaskFromEvent(event)
+    const taskContent = currentTask.querySelector(TASK_DESCRIPTION_SELECTOR).textContent
+
+    currentTask.remove()
+    this.addCompleteTask(taskContent)
+  }
+
+  currentTaskFromEvent (event) {
+    return event.currentTarget.closest(TASK_SELECTOR)
   }
 
   clearAndFocusInput() {
@@ -24,12 +41,20 @@ export default class TodoController extends Controller {
     this.newTaskTarget.focus()
   }
 
-  addTask(taskContent) {
-    const newTaskNode = this.nodeFromTemplate(this.taskTemplateTarget)
+  addIncompleteTask (taskContent) {
+    const newTaskNode = this.nodeFromTemplate(this.incompleteTaskTemplateTarget)
 
-    newTaskNode.querySelector(TASK_DESCRIPTION_SELECTOR).textContent = this.newTaskTarget.value
+    newTaskNode.querySelector(TASK_DESCRIPTION_SELECTOR).textContent = taskContent
 
-    this.element.appendChild(newTaskNode)
+    this.incompleteTasksTarget.appendChild(newTaskNode)
+  }
+
+  addCompleteTask (taskContent) {
+    const completeTaskNode = this.nodeFromTemplate(this.completeTaskTemplateTarget)
+
+    completeTaskNode.querySelector(TASK_DESCRIPTION_SELECTOR).textContent = taskContent
+
+    this.completeTasksTarget.appendChild(completeTaskNode)
   }
 
   nodeFromTemplate(target) {

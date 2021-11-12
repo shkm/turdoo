@@ -12,7 +12,7 @@
   <div data-controller="todo" class="flex flex-col items-center px-3 py-6 m-auto max-w-screen-sm">
     <h1 class="mb-10 w-full text-4xl text-center dark:text-gray-50">💩 Turdoo</h1>
 
-    <form data-action="todo#add" class="mb-4">
+    <form data-action="todo#add" class="mb-4 w-full">
       <div class="flex items-center border-b-2 border-purple-600">
         <!--suppress HtmlFormInputWithoutLabel -->
         <input
@@ -27,21 +27,32 @@
       </div>
     </form>
 
-    <template data-todo-target="taskTemplate">
-      <div class="mb-1 flex dark:text-gray-100 text-2xl w-full border-2 border-purple-600 p-2 px-3 items-center justify-between">
-        <span class="description"></span>
+    <div class="w-full" data-todo-target="incompleteTasks"></div>
+    <div class="w-full" data-todo-target="completeTasks"></div>
+
+    <template data-todo-target="incompleteTaskTemplate">
+      <div class="task mb-1 flex text-gray-400 dark:text-gray-700 text-2xl w-full border-2 border-purple-600 p-2 px-3 items-center justify-between">
+        <span class="text-gray-900 dark:text-gray-100 description"></span>
         <div class="flex">
-          <svg xmlns="http://www.w3.org/2000/svg" class="dark:text-gray-700 h-8 w-8 ml-1 hover:text-red-600 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg data-action="click->todo#remove" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 ml-1 hover:text-red-600 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
           </svg>
 
-          <svg xmlns="http://www.w3.org/2000/svg" class="dark:text-gray-700 h-8 w-8 ml-1 hover:text-green-600 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg data-action="click->todo#complete" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 ml-1 hover:text-green-600 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
           </svg>
         </div>
       </div>
     </template>
-  </div>
+
+    <template data-todo-target="completeTaskTemplate">
+      <div
+          class="text-gray-300 line-through task mb-1 dark:text-gray-700 text-2xl text-center w-full p-2 px-3">
+        <span class="description"></span>
+        </div>
+      </div>
+    </template>
+  </template>
 </div>
 
 
