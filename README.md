@@ -1,4 +1,4 @@
-# 💩 TurDoo
+# 💩 Turdoo
 
 The crappiest todo app. Available at [shkm.github.io/turdoo](https://shkm.github.io/turdoo/).
 
