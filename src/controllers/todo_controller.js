@@ -69,7 +69,7 @@ export default class TodoController extends Controller {
     newTaskNode.dataset.status = task.status
     newTaskNode.querySelector(TASK_DESCRIPTION_SELECTOR).textContent = task.content
 
-    this.parentTarget(task).appendChild(newTaskNode)
+    this.parentTarget(task).prepend(newTaskNode)
   }
 
   template(task) {
