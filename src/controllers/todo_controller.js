@@ -1,13 +1,19 @@
 import { Controller } from '@hotwired/stimulus'
+import { v4 as uuidv4 } from 'uuid';
+import { savedTasks, saveTask, unsaveTask } from '../task_store'
 
 const TASK_SELECTOR = '.task'
 const TASK_DESCRIPTION_SELECTOR = '.description'
+
+const STATUS_COMPLETE = 'complete'
+const STATUS_INCOMPLETE = 'incomplete'
 
 export default class TodoController extends Controller {
   static targets = ["newTask", "incompleteTaskTemplate", "completeTaskTemplate", "incompleteTasks", "completeTasks"]
 
   connect() {
     this.clearAndFocusInput()
+    this.populateSavedTasks()
   }
 
   add (event) {
@@ -15,21 +21,36 @@ export default class TodoController extends Controller {
 
     if (this.newTaskTarget.value === '') return
 
-    this.addIncompleteTask(this.newTaskTarget.value)
+    const task = this.buildTask(STATUS_INCOMPLETE, this.newTaskTarget.value)
+    saveTask(task)
 
+    this.addTaskToDom(task)
     this.clearAndFocusInput()
   }
 
   remove (event) {
-    this.currentTaskFromEvent(event).remove()
+    const currentTaskNode = this.currentTaskFromEvent(event)
+
+    unsaveTask(currentTaskNode.dataset.key)
+
+    currentTaskNode.remove()
   }
 
   complete (event) {
-    const currentTask = this.currentTaskFromEvent(event)
-    const taskContent = currentTask.querySelector(TASK_DESCRIPTION_SELECTOR).textContent
+    const currentTaskNode = this.currentTaskFromEvent(event)
+    const content = currentTaskNode.querySelector(TASK_DESCRIPTION_SELECTOR).textContent
+    const id = currentTaskNode.dataset.key
 
-    currentTask.remove()
-    this.addCompleteTask(taskContent)
+    unsaveTask(id)
+    currentTaskNode.remove()
+
+    const task = this.buildTask(STATUS_COMPLETE, content, id)
+    saveTask(task)
+    this.addTaskToDom(task)
+  }
+
+  populateSavedTasks() {
+    savedTasks().forEach(task => { this.addTaskToDom(task) })
   }
 
   currentTaskFromEvent (event) {
@@ -41,23 +62,39 @@ export default class TodoController extends Controller {
     this.newTaskTarget.focus()
   }
 
-  addIncompleteTask (taskContent) {
-    const newTaskNode = this.nodeFromTemplate(this.incompleteTaskTemplateTarget)
+  addTaskToDom(task) {
+    const newTaskNode = this.nodeFromTemplate(this.template(task))
 
-    newTaskNode.querySelector(TASK_DESCRIPTION_SELECTOR).textContent = taskContent
+    newTaskNode.dataset.key = task.id
+    newTaskNode.dataset.status = task.status
+    newTaskNode.querySelector(TASK_DESCRIPTION_SELECTOR).textContent = task.content
 
-    this.incompleteTasksTarget.appendChild(newTaskNode)
+    this.parentTarget(task).appendChild(newTaskNode)
   }
 
-  addCompleteTask (taskContent) {
-    const completeTaskNode = this.nodeFromTemplate(this.completeTaskTemplateTarget)
+  template(task) {
+    switch (task.status) {
+      case STATUS_COMPLETE:
+        return this.completeTaskTemplateTarget
+      case STATUS_INCOMPLETE:
+        return this.incompleteTaskTemplateTarget
+    }
+  }
 
-    completeTaskNode.querySelector(TASK_DESCRIPTION_SELECTOR).textContent = taskContent
+  parentTarget(task) {
+    switch (task.status) {
+      case STATUS_COMPLETE:
+        return this.completeTasksTarget
+      case STATUS_INCOMPLETE:
+        return this.incompleteTasksTarget
+    }
+  }
 
-    this.completeTasksTarget.appendChild(completeTaskNode)
+  buildTask(status, content, id = uuidv4()) {
+    return { id, status, content }
   }
 
   nodeFromTemplate(target) {
-    return target.content.cloneNode(true)
+    return target.content.firstElementChild.cloneNode(true)
   }
 }
