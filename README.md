@@ -1,4 +1,6 @@
+
 # 💩 Turdoo
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/shkm/turdoo/Test?label=%F0%9F%92%A9)
 
 The crappiest todo app. Available at [shkm.github.io/turdoo](https://shkm.github.io/turdoo/).
 
