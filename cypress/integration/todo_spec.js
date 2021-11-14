@@ -52,6 +52,17 @@ describe('Todo', () => {
     cy.get(dataCy('complete-todo')).should('contain.text', todoText)
   })
 
+  it('persists todos on page reload', function () {
+    addTodo('One')
+    addTodo('Two')
+    cy.get(dataCy('complete-todo-link')).first().click() // we want to test a complete one too
+
+    cy.reload()
+
+    cy.get(dataCy('incomplete-todo')).should('contain.text', 'One')
+    cy.get(dataCy('complete-todo')).should('contain.text', 'Two')
+  })
+
   it('Lists the most recently added first', function () {
     addTodo('One')
     addTodo('Two')
